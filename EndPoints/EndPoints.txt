@@ -1,0 +1,1 @@
+Creando los 9 endpoints para el proyecto de votación a tráves de reconocimiento facial.
