@@ -14,6 +14,42 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
+#Creando un usuario
+@app.route('/create_usuario', methods=['POST'])
+def create_usuario():
+    print(request.json)
+
+    params = {
+        'usuarionombre' : request.json['usuarionombre'],
+        'usuarioapellidos' : request.json['usuarioapellidos'],
+        'usuariodni' : request.json['usuariodni'],
+        'usuariodireccion' : request.json['usuariodireccion'],
+        'usuarioedad' : request.json['usuarioedad'],
+        'candidateimagen' : request.json['candidateimagen'],
+        'candidateimagen' : request.json['candidateimagen'],
+        'candidateimagen' : request.json['candidateimagen'],
+        'candidateimagen' : request.json['candidateimagen'],
+        'candidateimagen' : request.json['candidateimagen'],
+        'candidateimagen' : request.json['candidateimagen']
+    }
+
+    query = """insert into usuario (usuarionombre, usuarioapellidos, usuariodni, usuariodireccion, usuarioedad,
+         usuariofechanacimiento, usuariodniemision, usuariogenero, usuarioalias, usuariocontraseña,usuarioemail)
+         values (%(usuarionombre)s, %(usuarioapellidos)s, %(usuariodni)s, %(usuariodireccion)s, %(usuarioedad)s,
+         %(usuariofechanacimiento)s, %(usuariodniemision)s, %(usuariogenero)s, %(usuarioalias)s, %(usuariocontraseña)s,
+         %(usuarioemail)s) 
+         RETURNING id"""
+    cursor.execute(query, params)
+    id_of_new_row = cursor.fetchone()[0]
+    conn.commit()
+
+    content = {'id': id_of_new_row, 'usuarionombre': params['usuarionombre'], 'usuarioapellidos': params['usuarioapellidos'],
+    'usuariodni': params['usuariodni'], 'usuariodireccion': params['usuariodireccion'], 'usuarioedad': params['usuarioedad'],
+    'usuariofechanacimiento': params['usuariofechanacimiento'], 'usuariodniemision': params['usuariodniemision'],
+    'usuariogenero': params['usuariogenero'], 'usuarioalias': params['usuarioalias'], 'usuariocontraseña': params['usuariocontraseña'],
+    'usuarioemail': params['usuarioemail']}
+    return jsonify(content)
+
 #Creando un candidato
 @app.route('/create_candidate', methods=['POST'])
 def create_candidate():
