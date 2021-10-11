@@ -3,8 +3,6 @@ from flask import request
 from flask import jsonify
 import psycopg2
 
-#libraries: sudo pip3 install psycopg2-binary
-
 app = Flask(__name__)
 
 conn = psycopg2.connect(
@@ -60,35 +58,6 @@ def create_votante():
     content = {'id': id_of_new_row, 'numerosala': params['numerosala'], 'numeromesa': params['numeromesa'],
     'numeroorden': params['numeroorden'], 'localdevotacion': params['localdevotacion'], 'votantefoto': params['votantefoto']}
     return jsonify(content)
-
-@app.route('/tasks', methods=['POST'])
-def tasks():
-    cursor.execute("SELECT * from task")
-    #data = cursor.fetchone() # obtiene un registro
-    rv = cursor.fetchall()
-
-    data = []
-    content = {}
-    for result in rv:
-        content = {'id': result[0], 'title': result[1], 'description': result[2]}
-        data.append(content)
-        content = {}
-    return jsonify(data)
-
-
-@app.route('/task/<id>', methods=['POST'])
-def task(id):
-    cursor.execute("SELECT * from task where id="+id)
-    rv = cursor.fetchall()
-
-    data = []
-    content = {}
-    for result in rv:
-        content = {'id': result[0], 'title': result[1], 'description': result[2]}
-        data.append(content)
-        content = {}
-    return jsonify(data)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
