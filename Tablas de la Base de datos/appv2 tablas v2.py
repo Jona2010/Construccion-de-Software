@@ -14,6 +14,46 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # par q no de warnings
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+# tabla usuario
+class usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    usuarionombre = db.Column(db.String(100))
+    usuarioapellidos = db.Column(db.String(100))
+    usuariodni = db.Column(db.Integer)
+    usuariodireccion = db.Column(db.String(100))
+    usuarioedad = db.Column(db.Integer)
+    usuariofechanacimiento = db.Column(db.String(100))
+    usuariodniemision = db.Column(db.String(100))
+    usuariogenero = db.Column(db.String(100))
+    usuarioalias = db.Column(db.String(100))
+    usuariocontraseña = db.Column(db.String(100))
+    usuarioemail = db.Column(db.String(100))
+
+    def __init__(self, usuarionombre, usuarioapellidos, usuariodni, usuariodireccion, usuarioedad, usuariofechanacimiento
+        , usuariodniemision, usuariogenero, usuarioalias, usuariocontraseña, usuarioemail):
+        self.usuarionombre = usuarionombre
+        self.usuarioapellidos = usuarioapellidos
+        self.usuariodni = usuariodni
+        self.usuariodireccion = usuariodireccion
+        self.usuarioedad = usuarioedad
+        self.usuariofechanacimiento = usuariofechanacimiento
+        self.usuariodniemision = usuariodniemision
+        self.usuariogenero = usuariogenero
+        self.usuarioalias = usuarioalias
+        self.usuariocontraseña = usuariocontraseña
+        self.usuarioemail = usuarioemail
+
+db.create_all() # crea todas las tablas
+
+class TaskSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'usuarionombre', 'usuarioapellidos', 'usuariodni', 'usuariodireccion', 'usuarioedad',
+            'usuariofechanacimiento', 'usuariodniemision', 'usuariogenero', 'usuarioalias', 'usuariocontraseña',
+            'usuarioemail')
+
+task_schema = TaskSchema()
+tasks_schema = TaskSchema(many=True)
+
 # tabla candidato
 class candidato(db.Model):
     id = db.Column(db.Integer, primary_key=True)
