@@ -15,7 +15,7 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:290519@127.0.0.1:3306/flaskmysql'
 
 #posgresql
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:290519@127.0.0.1:8080/pruebaproyecto"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:290519@127.0.0.1:8080/proyectocs"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # par q no de warnings
 
