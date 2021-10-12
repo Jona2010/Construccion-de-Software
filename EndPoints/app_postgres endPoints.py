@@ -33,8 +33,8 @@ def create_usuario():
         'usuarioemail' : request.json['usuarioemail']
     }
 
-    query = """insert into usuario (usuarionombre, usuarioapellidos, usuariodni, usuariodireccion, usuarioedad,
-         usuariofechanacimiento, usuariodniemision, usuariogenero, usuarioalias, usuariocontraseña,usuarioemail)
+    query = """insert into usuario (usuarionombre, usuarioapellidos, usuariodni, usuariodireccion, usuarioedad, 
+    usuariofechanacimiento, usuariodniemision, usuariogenero, usuarioalias, usuariocontraseña,usuarioemail)
          values (%(usuarionombre)s, %(usuarioapellidos)s, %(usuariodni)s, %(usuariodireccion)s, %(usuarioedad)s,
          %(usuariofechanacimiento)s, %(usuariodniemision)s, %(usuariogenero)s, %(usuarioalias)s, %(usuariocontraseña)s,
          %(usuarioemail)s) 
