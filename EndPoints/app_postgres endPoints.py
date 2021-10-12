@@ -25,12 +25,12 @@ def create_usuario():
         'usuariodni' : request.json['usuariodni'],
         'usuariodireccion' : request.json['usuariodireccion'],
         'usuarioedad' : request.json['usuarioedad'],
-        'candidateimagen' : request.json['candidateimagen'],
-        'candidateimagen' : request.json['candidateimagen'],
-        'candidateimagen' : request.json['candidateimagen'],
-        'candidateimagen' : request.json['candidateimagen'],
-        'candidateimagen' : request.json['candidateimagen'],
-        'candidateimagen' : request.json['candidateimagen']
+        'usuariofechanacimiento' : request.json['candidateimagen'],
+        'usuariodniemision' : request.json['candidateimagen'],
+        'usuariogenero' : request.json['candidateimagen'],
+        'usuarioalias' : request.json['candidateimagen'],
+        'usuariocontraseña' : request.json['candidateimagen'],
+        'usuarioemail' : request.json['candidateimagen']
     }
 
     query = """insert into usuario (usuarionombre, usuarioapellidos, usuariodni, usuariodireccion, usuarioedad,
