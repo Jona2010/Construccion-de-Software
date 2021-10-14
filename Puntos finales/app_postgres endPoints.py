@@ -14,7 +14,6 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-#EndPoints Jonathan
 #Creando un usuario
 @app.route('/create_usuario', methods=['POST'])
 def create_usuario():
@@ -95,6 +94,53 @@ def create_votante():
     content = {'id': id_of_new_row, 'numerosala': params['numerosala'], 'numeromesa': params['numeromesa'],
     'numeroorden': params['numeroorden'], 'localdevotacion': params['localdevotacion'], 'votantefoto': params['votantefoto']}
     return jsonify(content)
+
+#Buscando a un usuario mediante el DNI
+@app.route('/user/<usuariodni>', methods=['POST'])
+def user(usuariodni):
+    cursor.execute("SELECT * from usuario where usuariodni="+usuariodni)
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'usuarionombre': result[1], 'usuarioapellidos': result[2], 'usuariodni': result[3], 'usuariodireccion':
+        result[4], 'usuarioedad': result[5], 'usuariofechanacimiento': result[6], 'usuariodniemision': result[7], 'usuariogenero': result[8],
+        'usuarioalias': result[9], 'usuariocontraseña': result[10], 'usuarioemail': result[11]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
+#Buscando a un candidato por su ocupacion
+@app.route('/candidate/<candidateocupacion>', methods=['POST'])
+def candidate(candidateocupacion):
+    cursor.execute("SELECT * from candidato where candidateocupacion="+candidateocupacion)
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'candidatepartido': result[1], 'candidateimagen': result[2], 'candidateocupacion': result[3], 
+        'candidatesentencias': result[4]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
+#Buscando el numero de mesa de un votante
+@app.route('/votante/<numeromesa>', methods=['POST'])
+def votante(numeromesa):
+    cursor.execute("SELECT * from votante where numeromesa="+numeromesa)
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'numerosala': result[1], 'numeromesa': result[2], 'numeroorden': result[3], 'localdevotacion':
+        result[4], 'votantefoto': result[5]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
