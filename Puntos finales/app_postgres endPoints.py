@@ -96,6 +96,28 @@ def create_votante():
     'numeroorden': params['numeroorden'], 'localdevotacion': params['localdevotacion'], 'votantefoto': params['votantefoto']}
     return jsonify(content)
 
+#Creando un voto
+@app.route('/create_voto', methods=['POST'])
+def create_voto():
+    print(request.json)
+
+    params = {
+        'usuariovoto' : request.json['usuariovoto'],
+        'partidovoto' : request.json['partidovoto'],
+        'fechavoto' : request.json['fechavoto'],
+        'lugarvoto' : request.json['lugarvoto'],
+    }
+
+    query = """insert into voto (usuariovoto, partidovoto, fechavoto, lugarvoto) 
+         values (%(usuariovoto)s, %(partidovoto)s, %(fechavoto)s, %(lugarvoto)s) RETURNING id"""
+    cursor.execute(query, params)
+    id_of_new_row = cursor.fetchone()[0]
+    conn.commit()
+
+    content = {'id': id_of_new_row, 'usuariovoto': params['usuariovoto'], 'partidovoto': params['partidovoto'],
+    'fechavoto': params['fechavoto'], 'lugarvoto': params['lugarvoto']}
+    return jsonify(content)
+
 #EndPoints Valeria
 #Mostrando los usuarios con sus respectivos datos
 @app.route('/usuarios', methods=['POST'])#valeria
@@ -142,6 +164,22 @@ def candidatos():
     for result in rv:
         content = {'id': result[0], 'candidatepartido': result[1], 'candidateimagen': result[2], 'candidateocupacion': result[3], 
         'candidatesentencias': result[4]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
+#Mostrando los votos que sean realizado
+@app.route('/votos', methods=['GET'])
+def votos():
+    cursor.execute("SELECT * from voto")
+    #data = cursor.fetchone() # obtiene un registro
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'usuariovoto': result[1], 'partidovoto': result[2], 'fechavoto': result[3], 
+        'lugarvoto': result[4]}
         data.append(content)
         content = {}
     return jsonify(data)
