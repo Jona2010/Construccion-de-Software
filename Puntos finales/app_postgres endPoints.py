@@ -164,9 +164,9 @@ def user(usuariodni):
     return jsonify(data)
 
 #Buscando a un candidato por su ocupacion
-@app.route('/candidate/<candidateocupacion>', methods=['POST'])
-def candidate(candidateocupacion):
-    cursor.execute("SELECT * from candidato where candidateocupacion="+candidateocupacion)
+@app.route('/candidate/<id>', methods=['POST'])
+def candidate(id):
+    cursor.execute("SELECT * from candidato where id="+id)
     rv = cursor.fetchall()
 
     data = []
