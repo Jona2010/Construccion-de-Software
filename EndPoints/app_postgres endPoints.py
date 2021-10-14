@@ -14,6 +14,7 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
+#EndPoints Jonathan
 #Creando un usuario
 @app.route('/create_usuario', methods=['POST'])
 def create_usuario():
