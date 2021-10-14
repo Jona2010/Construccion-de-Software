@@ -14,6 +14,7 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
+#EndPoints Jonathan
 #Creando un usuario
 @app.route('/create_usuario', methods=['POST'])
 def create_usuario():
@@ -95,6 +96,7 @@ def create_votante():
     'numeroorden': params['numeroorden'], 'localdevotacion': params['localdevotacion'], 'votantefoto': params['votantefoto']}
     return jsonify(content)
 
+#EndPoints Hector
 #Buscando a un usuario mediante el DNI
 @app.route('/user/<usuariodni>', methods=['POST'])
 def user(usuariodni):
