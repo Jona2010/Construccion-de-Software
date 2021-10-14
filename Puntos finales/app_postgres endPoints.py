@@ -96,6 +96,56 @@ def create_votante():
     'numeroorden': params['numeroorden'], 'localdevotacion': params['localdevotacion'], 'votantefoto': params['votantefoto']}
     return jsonify(content)
 
+#EndPoints Valeria
+#Mostrando los usuarios con sus respectivos datos
+@app.route('/usuarios', methods=['POST'])#valeria
+def usuarios():
+    cursor.execute("SELECT * from usuario")
+    #data = cursor.fetchone() # obtiene un registro
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'usuarionombre': result[1], 'usuarioapellidos': result[2], 'usuariodni': result[3], 'usuariodireccion':
+        result[4], 'usuarioedad': result[5], 'usuariofechanacimiento': result[6], 'usuariodniemision': result[7], 'usuariogenero': result[8],
+        'usuarioalias': result[9], 'usuariocontraseña': result[10], 'usuarioemail': result[11]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
+#Mostrando los votantes con sus respectivos datos
+@app.route('/votantes', methods=['POST'])#valeria
+def votantes():
+    cursor.execute("SELECT * from votante")
+    #data = cursor.fetchone() # obtiene un registro
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'numerosala': result[1], 'numeromesa': result[2], 'numeroorden': result[3], 'localdevotacion':
+        result[4], 'votantefoto': result[5]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
+#Mostrando los candidatos con sus respectivos datos
+@app.route('/candidatos', methods=['POST'])#valeria
+def candidatos():
+    cursor.execute("SELECT * from candidato")
+    #data = cursor.fetchone() # obtiene un registro
+    rv = cursor.fetchall()
+
+    data = []
+    content = {}
+    for result in rv:
+        content = {'id': result[0], 'candidatepartido': result[1], 'candidateimagen': result[2], 'candidateocupacion': result[3], 
+        'candidatesentencias': result[4]}
+        data.append(content)
+        content = {}
+    return jsonify(data)
+
 #EndPoints Hector
 #Buscando a un usuario mediante el DNI
 @app.route('/user/<usuariodni>', methods=['POST'])
