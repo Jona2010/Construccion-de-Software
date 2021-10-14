@@ -104,18 +104,22 @@ def create_voto():
     params = {
         'usuariovoto' : request.json['usuariovoto'],
         'partidovoto' : request.json['partidovoto'],
+        'candidatovoto': request.json['candidatovoto'],
+        'dnivoto': request.json['dnivoto'],
         'fechavoto' : request.json['fechavoto'],
-        'lugarvoto' : request.json['lugarvoto'],
+        'lugarvoto' : request.json['lugarvoto']
     }
 
-    query = """insert into voto (usuariovoto, partidovoto, fechavoto, lugarvoto) 
-         values (%(usuariovoto)s, %(partidovoto)s, %(fechavoto)s, %(lugarvoto)s) RETURNING id"""
+    query = """insert into voto (usuariovoto, partidovoto, candidatovoto, dnivoto, fechavoto, lugarvoto) 
+         values (%(usuariovoto)s, %(partidovoto)s, %(candidatovoto)s, %(dnivoto)s, %(fechavoto)s, 
+         %(lugarvoto)s) RETURNING id"""
     cursor.execute(query, params)
     id_of_new_row = cursor.fetchone()[0]
     conn.commit()
 
     content = {'id': id_of_new_row, 'usuariovoto': params['usuariovoto'], 'partidovoto': params['partidovoto'],
-    'fechavoto': params['fechavoto'], 'lugarvoto': params['lugarvoto']}
+    'candidatovoto': params['candidatevoto'], 'dnivoto': params['dnivoto'], 'fechavoto': params['fechavoto'], 
+    'lugarvoto': params['lugarvoto']}
     return jsonify(content)
 
 #EndPoints Valeria
