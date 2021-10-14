@@ -14,7 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # par q no de warnings
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-# tabla usuario
+#tabla usuario
 class usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     usuarionombre = db.Column(db.String(100))
@@ -54,7 +54,7 @@ class TaskSchema(ma.Schema):
 task_schema = TaskSchema()
 tasks_schema = TaskSchema(many=True)
 
-# tabla candidato
+#tabla candidato
 class candidato(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     candidatepartido = db.Column(db.String(100))
@@ -77,7 +77,7 @@ class TaskSchema(ma.Schema):
 task_schema = TaskSchema()
 tasks_schema = TaskSchema(many=True)
 
-# tabla votante
+#tabla votante
 class votante(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     numerosala = db.Column(db.Integer)
@@ -98,6 +98,29 @@ db.create_all() # crea todas las tablas
 class TaskSchema(ma.Schema):
     class Meta:
         fields = ('id', 'numerosala', 'numeromesa', 'numeroorden', 'localdevotacion', 'votantefoto')
+
+task_schema = TaskSchema()
+tasks_schema = TaskSchema(many=True)
+
+#tabla voto
+class voto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    usuariovoto = db.Column(db.String(100))
+    partidovoto = db.Column(db.String(100))
+    fechavoto = db.Column(db.DateTime)
+    lugarvoto = db.Column(db.String(100))
+
+    def __init__(self, usuariovoto, partidovoto, fechavoto, lugarvoto):
+        self.usuariovoto = usuariovoto
+        self.partidovoto = partidovoto
+        self.fechavoto = fechavoto
+        self.lugarvoto = lugarvoto
+
+db.create_all() # crea todas las tablas
+
+class TaskSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'usuariovoto', 'partidovoto', 'fechavoto', 'lugarvoto')
 
 task_schema = TaskSchema()
 tasks_schema = TaskSchema(many=True)
