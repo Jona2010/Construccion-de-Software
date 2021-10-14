@@ -168,22 +168,6 @@ def candidatos():
         content = {}
     return jsonify(data)
 
-#Mostrando los votos que sean realizado
-@app.route('/votos', methods=['GET'])
-def votos():
-    cursor.execute("SELECT * from voto")
-    #data = cursor.fetchone() # obtiene un registro
-    rv = cursor.fetchall()
-
-    data = []
-    content = {}
-    for result in rv:
-        content = {'id': result[0], 'usuariovoto': result[1], 'partidovoto': result[2], 'fechavoto': result[3], 
-        'lugarvoto': result[4]}
-        data.append(content)
-        content = {}
-    return jsonify(data)
-
 #EndPoints Hector
 #Buscando a un usuario mediante el DNI
 @app.route('/user/<usuariodni>', methods=['POST'])
